@@ -9,21 +9,28 @@ function Initial({ navigation, firebase }) {
   const [isAssetsLoadingComplete, setIsAssetsLoadingComplete] = useState(false);
 
   useEffect(() => {
-    try {
-      loadLocalAsync();
+    let mounted = true;
 
-      firebase.checkUserAuth(user => {
-        if (user) {
-          // if the user has previously logged in
-          navigation.navigate("App");
-        } else {
-          // if the user has previously logged out from the app
-          navigation.navigate("Auth");
-        }
-      });
-    } catch (error) {
-      console.log(error);
+    if (mounted) {
+      try {
+        loadLocalAsync();
+
+        firebase.checkUserAuth(user => {
+          if (user) {
+            // if the user has previously logged in
+            navigation.navigate("App");
+          } else {
+            // if the user has previously logged out from the app
+            navigation.navigate("Auth");
+          }
+        });
+      } catch (error) {
+        console.log(error);
+      }
     }
+
+    return () => mounted = false;
+
   }, []);
 
   async function loadLocalAsync() {
