@@ -35,7 +35,7 @@ const Firebase = {
     return firebase
       .firestore()
       .collection("events")
-      .doc(`${eventData.uid}`)
+      .doc(`${eventData.timestamp}`)
       .set(eventData);
   }
 };

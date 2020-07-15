@@ -27,10 +27,12 @@ const validationSchema = Yup.object().shape({
 
 function Submit({ navigation, firebase }) {
   async function handleSubmit(values, actions) {
-    const { event_name, event_description } = values;
+    const { event_name, event_description, timestamp } = values;
 
-    try {      
-      const eventData = { event_name, event_description };
+    try {
+      const timestamp = new Date().getTime();
+      const eventData = { event_name, event_description, timestamp };
+
       await firebase.submitEvent(eventData);
       navigation.navigate("App");
     } catch (error) {
