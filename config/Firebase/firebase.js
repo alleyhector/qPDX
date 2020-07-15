@@ -30,6 +30,13 @@ const Firebase = {
       .collection("users")
       .doc(`${userData.uid}`)
       .set(userData);
+  },
+  submitEvent: eventData => {
+    return firebase
+      .firestore()
+      .collection("events")
+      .doc(`${eventData.uid}`)
+      .set(eventData);
   }
 };
 

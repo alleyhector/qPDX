@@ -114,7 +114,7 @@ function Login({ navigation, firebase }) {
               <FormButton
                 buttonType="outline"
                 onPress={handleSubmit}
-                title="LOGIN"
+                title="LOGIN YO"
                 buttonColor="#039BE5"
                 disabled={!isValid || isSubmitting}
                 loading={isSubmitting}

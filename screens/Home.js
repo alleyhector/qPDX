@@ -17,6 +17,10 @@ function Home({ navigation, firebase }) {
     <View style={styles.container}>
       <Text>Home</Text>
       <Button
+        title="Go to Submit"
+        onPress={() => navigation.push('Submit')}
+      />
+      <Button
         title="Signout"
         onPress={handleSignout}
         titleStyle={{
