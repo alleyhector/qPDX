@@ -7,7 +7,7 @@ import {
   KeyboardAvoidingView,
   ScrollView
 } from "react-native";
-import { Button } from "react-native-elements";
+import { Button, CheckBox } from "react-native-elements";
 import { Ionicons } from "@expo/vector-icons";
 import { Formik } from "formik";
 import * as Yup from "yup";
@@ -22,16 +22,18 @@ const validationSchema = Yup.object().shape({
     .required(),
   event_description: Yup.string()
     .label("Event Description")
-    .required()
+    .required(),
+  // check: Yup.boolean().oneOf([true], "In Person")
 });
 
 function Submit({ navigation, firebase }) {
   async function handleSubmit(values, actions) {
-    const { event_name, event_description, timestamp } = values;
+    const { event_name, event_description, timestamp, check } = values;
 
     try {
+      let type = (check == true) ? "Virtual" : "In Person";
       const timestamp = new Date().getTime();
-      const eventData = { event_name, event_description, timestamp };
+      const eventData = { event_name, event_description, type, timestamp };
 
       await firebase.submitEvent(eventData);
       navigation.navigate("App");
@@ -48,7 +50,7 @@ function Submit({ navigation, firebase }) {
         <Text>Submit</Text>
 
         <Formik
-          initialValues={{ event_name: "", event_description: "" }}
+          initialValues={{ event_name: "", event_description: "", check: false }}
           onSubmit={(values, actions) => {
             handleSubmit(values, actions);
           }}
@@ -62,7 +64,8 @@ function Submit({ navigation, firebase }) {
             isValid,
             touched,
             handleBlur,
-            isSubmitting
+            isSubmitting,
+            setFieldValue
           }) => (
             <>
               <FormInput
@@ -82,6 +85,16 @@ function Submit({ navigation, firebase }) {
                 onBlur={handleBlur("event_description")}
               />
               <ErrorMessage errorValue={touched.event_description && errors.event_description} />
+              <CheckBox
+                containerStyle={styles.checkBoxContainer}
+                checkedIcon="check-box"
+                iconType="material"
+                uncheckedIcon="check-box-outline-blank"
+                title="Check here if this is a virtual event"
+                checkedTitle="You have indicated that this event is virtual"
+                checked={values.check}
+                onPress={() => setFieldValue("check", !values.check)}
+              />
               <View style={styles.buttonContainer}>
                 <FormButton
                   buttonType="outline"
