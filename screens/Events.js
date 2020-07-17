@@ -12,12 +12,10 @@ import { withFirebaseHOC } from "../config/Firebase";
 
 function Events({ navigation, firebase }) {
 
-  const [ event, setEvent ] = useState('');
-  const ref = firebase.readEvents();
   const [ events, setEvents ] = useState([]);
 
   useEffect(() => {
-    return ref
+    return firebase.readEvents()
     .orderBy('timestamp', 'asc')
     .onSnapshot(querySnapshot => {
       const list = [];
@@ -30,15 +28,17 @@ function Events({ navigation, firebase }) {
           type,
         });
       });
-
       setEvents(list);
-
-    });
+    },
+      error => {
+        console.log(error)
+      });
   }, []);
 
   const renderEntity = ({item, index}) => {
+    const backgroundColor = (item.type == "Virtual") ? "pink" : "skyblue";
     return (
-      <View style={styles.item}>
+      <View style={[styles.item, { backgroundColor: backgroundColor }]}>
         <Text>
           {index}. {item.event_name}
         </Text>
@@ -71,8 +71,10 @@ const styles = StyleSheet.create({
     marginTop: 50
   },
   item: {
-    margin: 10
-  },
+    padding: 10,
+    borderBottomWidth: 2,
+    borderBottomColor: "black"
+  }
 });
 
 export default withFirebaseHOC(Events);
