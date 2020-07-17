@@ -37,6 +37,11 @@ const Firebase = {
       .collection("events")
       .doc(`${eventData.timestamp}`)
       .set(eventData);
+  },
+  readEvents: () => {
+    return firebase
+      .firestore()
+      .collection("events");
   }
 };
 

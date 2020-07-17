@@ -22,8 +22,7 @@ const validationSchema = Yup.object().shape({
     .required(),
   event_description: Yup.string()
     .label("Event Description")
-    .required(),
-  // check: Yup.boolean().oneOf([true], "In Person")
+    .required()
 });
 
 function Submit({ navigation, firebase }) {

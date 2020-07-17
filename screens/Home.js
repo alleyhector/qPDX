@@ -21,6 +21,10 @@ function Home({ navigation, firebase }) {
         onPress={() => navigation.push('Submit')}
       />
       <Button
+        title="Go to Events"
+        onPress={() => navigation.push('Events')}
+      />
+      <Button
         title="Signout"
         onPress={handleSignout}
         titleStyle={{
