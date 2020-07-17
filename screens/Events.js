@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import {
   FlatList,
-  Text,
   StyleSheet,
   View,
   TouchableOpacity,
   ScrollView
 } from "react-native";
+import { Text } from "react-native-elements";
 import ErrorMessage from "../components/ErrorMessage";
 import { withFirebaseHOC } from "../config/Firebase";
 
@@ -39,8 +39,8 @@ function Events({ navigation, firebase }) {
     const backgroundColor = (item.type == "Virtual") ? "pink" : "skyblue";
     return (
       <View style={[styles.item, { backgroundColor: backgroundColor }]}>
-        <Text>
-          {index}. {item.event_name}
+        <Text h3>
+          {item.event_name}
         </Text>
         <Text>
           &nbsp; {item.event_description}
