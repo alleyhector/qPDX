@@ -31,7 +31,7 @@ function Submit({ navigation, firebase }) {
 
     try {
       let type = (check == true) ? "Virtual" : "In Person";
-      const timestamp = new Date().getTime();
+      const timestamp = firebase.getTime();
       const eventData = { event_name, event_description, type, timestamp };
 
       await firebase.submitEvent(eventData);

@@ -35,13 +35,19 @@ const Firebase = {
     return firebase
       .firestore()
       .collection("events")
-      .doc(`${eventData.timestamp}`)
-      .set(eventData);
+      // .doc(`${eventData.timestamp}`)
+      .add(eventData);
   },
   readEvents: () => {
     return firebase
       .firestore()
       .collection("events");
+  },
+  getTime: () => {
+    return firebase
+      .firestore
+      .FieldValue
+      .serverTimestamp();
   }
 };
 

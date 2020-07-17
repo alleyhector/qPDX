@@ -17,14 +17,17 @@ function Events({ navigation, firebase }) {
   const [ events, setEvents ] = useState([]);
 
   useEffect(() => {
-    return ref.onSnapshot(querySnapshot => {
+    return ref
+    .orderBy('timestamp', 'asc')
+    .onSnapshot(querySnapshot => {
       const list = [];
       querySnapshot.forEach(doc => {
-        const { event_name, event_description, timestamp } = doc.data();
+        const { event_name, event_description, timestamp, type } = doc.data();
         list.push({
           timestamp,
           event_name,
           event_description,
+          type,
         });
       });
 
@@ -41,6 +44,9 @@ function Events({ navigation, firebase }) {
         </Text>
         <Text>
           &nbsp; {item.event_description}
+        </Text>
+        <Text>
+          &nbsp; {item.type}
         </Text>
       </View>
     )
