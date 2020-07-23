@@ -4,7 +4,7 @@ import { View, StyleSheet, Button } from 'react-native';
 import useStatusBar from '../hooks/useStatusBar';
 import { logout } from '../components/Firebase/firebase';
 
-export default function HomeScreen() {
+export default function HomeScreen({ navigation }) {
   useStatusBar('dark-content');
   async function handleSignOut() {
     try {
@@ -17,11 +17,7 @@ export default function HomeScreen() {
     <View style={styles.container}>
       <Button
         title="Go to Submit"
-        onPress={() => navigation.push('Submit')}
-      />
-      <Button
-        title="Go to Events"
-        onPress={() => navigation.push('Events')}
+        onPress={() => navigation.navigate('Submit')}
       />
       <Button title="Sign Out" onPress={handleSignOut} />
     </View>

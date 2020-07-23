@@ -1,5 +1,6 @@
 import * as firebase from 'firebase';
 import 'firebase/auth';
+import 'firebase/firestore';
 
 import firebaseConfig from './firebaseConfig';
 
@@ -10,6 +11,7 @@ if (!firebase.apps.length) {
 }
 
 export const auth = firebase.auth();
+export const store = firebase.firestore();
 
 export const loginWithEmail = (email, password) =>
   auth.signInWithEmailAndPassword(email, password);
@@ -20,3 +22,6 @@ export const registerWithEmail = (email, password) =>
 export const logout = () => auth.signOut();
 
 export const passwordReset = email => auth.sendPasswordResetEmail(email);
+
+export const submitEvent = eventData =>
+  store.collection('events').add(eventData);
