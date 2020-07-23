@@ -25,3 +25,5 @@ export const passwordReset = email => auth.sendPasswordResetEmail(email);
 
 export const submitEvent = eventData =>
   store.collection('events').add(eventData);
+
+export const readEvents = () => store.collection('events');

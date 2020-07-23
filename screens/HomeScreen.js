@@ -19,6 +19,10 @@ export default function HomeScreen({ navigation }) {
         title="Go to Submit"
         onPress={() => navigation.navigate('Submit')}
       />
+      <Button
+        title="Go to Events"
+        onPress={() => navigation.navigate('Events')}
+      />
       <Button title="Sign Out" onPress={handleSignOut} />
     </View>
   );
