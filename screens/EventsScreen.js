@@ -61,6 +61,13 @@ export default function EventsScreen({ navigation }) {
         keyExtractor={(item) => item.timestamp}
         renderItem={renderEntity}
       />
+      <IconButton
+        style={styles.backButton}
+        iconName="keyboard-backspace"
+        color={Colors.white}
+        size={30}
+        onPress={() => navigation.goBack()}
+      />
     </SafeView>
   );
 }
