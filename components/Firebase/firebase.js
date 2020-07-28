@@ -10,8 +10,8 @@ if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig);
 }
 
+// Auth
 export const auth = firebase.auth();
-export const store = firebase.firestore();
 
 export const loginWithEmail = (email, password) =>
   auth.signInWithEmailAndPassword(email, password);
@@ -22,6 +22,10 @@ export const registerWithEmail = (email, password) =>
 export const logout = () => auth.signOut();
 
 export const passwordReset = email => auth.sendPasswordResetEmail(email);
+
+
+// Firestore
+export const store = firebase.firestore();
 
 export const submitEvent = eventData =>
   store.collection('events').add(eventData);
