@@ -58,7 +58,7 @@ export default function EventsScreen({ navigation }) {
     <SafeView style={styles.container}>
       <FlatList 
         data={events}
-        keyExtractor={(item) => item.timestamp}
+        keyExtractor={(item) => item.timestamp.toString()}
         renderItem={renderEntity}
       />
       <IconButton
