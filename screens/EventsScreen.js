@@ -24,11 +24,12 @@ export default function EventsScreen({ navigation }) {
     .onSnapshot(querySnapshot => {
       const list = [];
       querySnapshot.forEach(doc => {
-        const { event_name, event_description, timestamp } = doc.data();
+        const { event_name, event_description, event_type, timestamp } = doc.data();
         list.push({
           timestamp,
           event_name,
-          event_description
+          event_description,
+          event_type
         });
       });
       setEvents(list);
@@ -39,8 +40,10 @@ export default function EventsScreen({ navigation }) {
   }, []);
 
     const renderEntity = ({item, index}) => {
+      const backgroundColor = (item.event_type == "virtual") ? Colors.lightGrey : Colors.mediumGrey;
+      console.log(item);
       return (
-        <View style={styles.item}>
+        <View style={[styles.item, { backgroundColor: backgroundColor }]}>
           <Text h3>
             {item.event_name}
           </Text>
@@ -74,7 +77,6 @@ export default function EventsScreen({ navigation }) {
 
 const styles = StyleSheet.create({
   container: {
-    padding: 15,
     backgroundColor: Colors.mediumGrey
   },
   backButton: {
@@ -83,9 +85,8 @@ const styles = StyleSheet.create({
     marginVertical: 10
   },
   item: {
-    padding: 10,
+    padding: 15,
     borderBottomWidth: 2,
-    borderBottomColor: Colors.primary,
-    backgroundColor: Colors.mediumGrey
+    borderBottomColor: Colors.primary
   }
 });
